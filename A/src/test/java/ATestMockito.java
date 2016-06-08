@@ -24,7 +24,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class ATestMockito {
 	A a = new A();
-	Boolean b;
+
 
 	@Mock
 	Connection con;
@@ -34,7 +34,6 @@ public class ATestMockito {
 	ResultSet rs;
 	@Mock
 	ResultSetMetaData rmd;
-	int x = 1;
 
 	@Mock
 	HttpsURLConnection huc;
@@ -42,9 +41,6 @@ public class ATestMockito {
 	SSLSocketFactory sss;
 	@Mock
 	Socket soc;
-
-
-
 
 
 	/*
@@ -59,6 +55,7 @@ public class ATestMockito {
 		Mockito.when(con.getMetaData()).thenReturn(dbmd);
 		Mockito.when(dbmd.getIndexInfo("", "", "", true, false)).thenReturn(rs);
 		Mockito.when(rs.getMetaData()).thenReturn(rmd);
+		Mockito.when(rmd.isAutoIncrement(0)).thenReturn(false);
 		a.isAutoIncrement(con);
 	}
 
@@ -73,7 +70,7 @@ public class ATestMockito {
 	public void testCreateSocket() throws IOException {
 		Mockito.when(huc.getSSLSocketFactory()).thenReturn(sss);
 		Mockito.when(sss.createSocket("localhost", 8080)).thenReturn(soc);
-		Mockito.when(soc.getPort()).thenReturn(x);
+		Mockito.when(soc.getPort()).thenReturn(8080);
 		a.createSocket(huc);
 	}
 
